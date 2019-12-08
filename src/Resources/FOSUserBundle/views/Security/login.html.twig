@@ -1,0 +1,67 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block fos_user_content %}
+
+    <div class="col-md-6" style="margin: auto;">
+        <div class="page-head">
+            <!-- BEGIN PAGE TITLE -->
+            <div class="page-title">
+                <div class="caption">
+                    <span class="caption-subject font-dark bold"><h3>Bienvenue sur la plateforme</h3></span>
+                </div>
+            </div>
+            <!-- END PAGE TITLE -->
+        </div>
+        <div class="m-portlet m-portlet--tab">
+
+            <!--begin::Form-->
+
+            <form class="m-form m-form--fit m-form--label-align-left" role="form" method="post" action="{{ path("fos_admin_user_security_check") }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <span>{{ error.messageKey | trans(error.messageData, 'security')}}</span>
+                    </div>
+                {% endif %}
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group">
+                        <label >
+                            Identifiant
+                        </label>
+                        <input type="text" required="" name="_username" placeholder="Email" value="{{ last_username }}" autocomplete="off" class="form-control m-input m-input--square" >
+
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label>
+                            Mot de passe
+                        </label>
+                        <input type="password" required="" name="_password" placeholder="Mot de passe" autocomplete="off" class="form-control m-input m-input--square" >
+                    </div>
+                    <div class="form-group m-form__group">
+                        <span class=" col-7 m-switch m-switch--icon m-switch--accent" style="padding-left: 0px;">
+                            <label style="width: 100%;" >
+                                <input type="checkbox" checked="checked" name="">
+                                <span></span><p style="margin-top: 5px;"> Se souvenir de moi</p>
+
+                            </label>
+                        </span>
+
+
+                      <a class="pull-right" id="forget-password" href="{{ path('fos_user_resetting_request') }}" style="margin-top: 5px;">Mot de passe oublié ?</a>
+                        
+                    </div>
+
+                    <div class="m-form__actions">
+                        <button type="submit" class="btn btn-accent">
+                            Connexion
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+
+{% endblock fos_user_content %}
